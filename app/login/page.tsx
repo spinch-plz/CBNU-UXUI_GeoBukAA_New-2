@@ -26,19 +26,15 @@ export default function LoginPage() {
       {/* 거북이 일러스트 + 타이틀 */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
         <Img
-          src="/splash_icon5.png"
+          src="/splash_icon1.png"
           alt="거북이"
           style={{ width: 180, height: 180, objectFit: "contain" }}
         />
-        <span style={{
-          fontSize: 56,
-          fontWeight: "var(--fw-bold)",
-          color: "var(--coral-500)",
-          fontFamily: "'Gaegu', cursive",
-          lineHeight: 1,
-        }}>
-          거북아
-        </span>
+        <Img
+          src="/splash2.png"
+          alt="거북아"
+          style={{ width: "70%", maxWidth: 280, display: "block" }}
+        />
       </div>
 
       {/* 소셜 로그인 버튼 */}
