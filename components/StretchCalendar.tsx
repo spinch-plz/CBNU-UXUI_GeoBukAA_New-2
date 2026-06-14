@@ -10,7 +10,7 @@ export default function StretchCalendar({
   todayDate: string; // YYYY-MM-DD
 }) {
   const doneSet = new Map(records.map((r) => [r.date, r]));
-  const wds = ["일", "월", "화", "수", "목", "금", "토"];
+  const wds = ["S", "M", "T", "W", "T", "F", "S"];
 
   // 2026년 6월 고정 그리드 (데모)
   const year = 2026;
