@@ -2,14 +2,16 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import ThemeSync from "@/components/ThemeSync";
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   title: "Turtle — 자세 교정",
   description: "이중 관심 자세교정 · 거북이에서 사람으로",
-  manifest: "/CBNU-UXUI_GeoBukAA_New-2/manifest.json",
+  manifest: `${BASE}/manifest.json`,
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Turtle" },
   icons: {
-    icon: "/app_icon.png",
-    apple: "/app_icon.png",
+    icon: `${BASE}/app_icon.png`,
+    apple: `${BASE}/app_icon.png`,
   },
 };
 
