@@ -1,115 +1,86 @@
 "use client";
+import { useState } from "react";
 import AppShell from "@/components/AppShell";
-import Icon from "@/components/Icon";
-import { useTurtle } from "@/lib/store";
-import type { AlertMode } from "@/lib/types";
+import GeobugaLogo from "@/components/art/GeobugaLogo";
 
-/** B3. 상황별 알림 설정 — 방해금지/게이밍/휴식·이동/자동, 알림 주기 스텝퍼. */
-const MODES: { id: AlertMode; name: string; icon: string; desc: string }[] = [
-  { id: "auto", name: "자동", icon: "wand-magic-sparkles", desc: "상황을 추정해 알아서" },
-  { id: "focus", name: "방해 금지", icon: "moon", desc: "알림을 보류" },
-  { id: "gaming", name: "게이밍", icon: "gamepad", desc: "게임 중엔 최소화" },
-  { id: "rest", name: "휴식·이동", icon: "person-walking", desc: "가볍게 자주" },
+function Toggle({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) {
+  return (
+    <button
+      onClick={() => onChange(!value)}
+      aria-pressed={value}
+      style={{
+        width: 52, height: 30, borderRadius: 999, border: "none",
+        background: value ? "var(--coral-500)" : "var(--coral-200, #f0c4b4)",
+        position: "relative", cursor: "pointer", flexShrink: 0,
+        transition: "background 0.2s",
+      }}
+    >
+      <span style={{
+        position: "absolute", top: 3,
+        left: value ? 25 : 3,
+        width: 24, height: 24, borderRadius: "50%",
+        background: "#fff",
+        transition: "left 0.2s",
+        display: "block",
+      }} />
+    </button>
+  );
+}
+
+const MODES = [
+  {
+    id: "dnd",
+    icon: "/b3_icon_DND.svg",
+    name: "방해금지모드",
+    desc: "활성화 시 모든 알림이 울리지 않습니다.",
+  },
+  {
+    id: "move",
+    icon: "/b3_icon_walk.svg",
+    name: "이동모드",
+    desc: "스마트폰을 보며 이동하는 상황을 위한 모드입니다.\n화면이 바닥을 향해 일정 각도 이상\n오랫동안 기울어져 있으면,\n햅틱 피드백을 통해 고개를 들게 유도합니다.",
+  },
+  {
+    id: "rest",
+    icon: "/b3_icon_rast.svg",
+    name: "휴식모드",
+    desc: "누워서 스마트폰을 사용하는 상황을 위한 모드입니다.\n기기가 수평으로 누워있을 때,\n휴식 상태로 인지하여 알림을 일시 정지합니다.",
+  },
 ];
 
 export default function AlertsPage() {
-  const { alertMode, setAlertMode, alertFrequency, setAlertFrequency, appNotiEnabled, setAppNoti } =
-    useTurtle();
+  const [toggles, setToggles] = useState<Record<string, boolean>>({
+    dnd: false, move: false, rest: false,
+  });
+
+  function toggle(id: string, v: boolean) {
+    setToggles((prev) => ({ ...prev, [id]: v }));
+  }
 
   return (
-    <AppShell title="설정" subtitle="상황별 알림" back hideNav>
-      {/* 전체 토글 */}
-      <div className="card row-between">
-        <div>
-          <div style={{ fontWeight: 700, color: "var(--coral-500)" }}>앱 알림</div>
-          <div className="muted" style={{ fontSize: "var(--text-xs)" }}>
-            끄면 모든 자세 알림이 멈춰요
-          </div>
-        </div>
-        <button
-          aria-pressed={appNotiEnabled}
-          onClick={() => setAppNoti(!appNotiEnabled)}
-          style={{
-            width: 52,
-            height: 30,
-            borderRadius: 999,
-            border: "none",
-            cursor: "pointer",
-            background: appNotiEnabled ? "var(--coral-500)" : "var(--gray-300)",
-            position: "relative",
-          }}
-        >
-          <span
-            style={{
-              position: "absolute",
-              top: 3,
-              left: appNotiEnabled ? 25 : 3,
-              width: 24,
-              height: 24,
-              borderRadius: "50%",
-              background: "#fff",
-              transition: "left var(--dur) var(--ease)",
-            }}
-          />
-        </button>
-      </div>
+    <AppShell brand={<GeobugaLogo className="brand-logo" />} showMenu>
+      <img src="/b3_title.png" alt="상황별 알림 설정" style={{ width: "100%", display: "block" }} />
 
-      <div className="section-title">상황 모드</div>
-      <div className="grid-2">
-        {MODES.map((m) => {
-          const active = alertMode === m.id;
-          return (
-            <button
-              key={m.id}
-              className="card"
-              style={{
-                cursor: "pointer",
-                display: "flex",
-                flexDirection: "column",
-                gap: 8,
-                opacity: appNotiEnabled ? 1 : 0.5,
-                boxShadow: active ? "var(--outline)" : "var(--outline-thin)",
-                background: active ? "var(--coral-100)" : "transparent",
-              }}
-              disabled={!appNotiEnabled}
-              onClick={() => setAlertMode(m.id)}
-            >
-              <div className="row-between">
-                <div className="s-icon" style={{ width: 36, height: 36, borderRadius: 999, background: "var(--coral-500)", color: "var(--blue-200)", display: "grid", placeItems: "center" }}>
-                  <Icon name={m.icon} />
-                </div>
-                {active && <Icon name="check" />}
+      <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+        {MODES.map((m) => (
+          <div key={m.id} style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                <img src={m.icon} alt={m.name} style={{ width: 24, height: 24, objectFit: "contain" }} />
+                <span style={{
+                  fontWeight: "var(--fw-bold)", color: "var(--coral-500)",
+                  fontSize: "var(--text-base)",
+                }}>
+                  {m.name}
+                </span>
               </div>
-              <div style={{ fontWeight: 700, color: "var(--coral-500)" }}>{m.name}</div>
-              <div className="muted" style={{ fontSize: "var(--text-2xs)" }}>
+              <div style={{ fontSize: "var(--text-sm)", lineHeight: 1.65, whiteSpace: "pre-line", color: "#E97451" }}>
                 {m.desc}
               </div>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* 알림 주기 스텝퍼 1~5 */}
-      <div className="section-title">하루 알림 주기</div>
-      <div className="g-stepper" style={{ maxWidth: "100%", opacity: appNotiEnabled ? 1 : 0.5 }}>
-        <div className="track">
-          <i style={{ width: `${(alertFrequency / 5) * 100}%` }} />
-        </div>
-        <div className="dots">
-          {[1, 2, 3, 4, 5].map((n) => (
-            <button
-              key={n}
-              className={`dot${n === alertFrequency ? " on" : ""}`}
-              disabled={!appNotiEnabled}
-              onClick={() => setAlertFrequency(n)}
-            >
-              {n}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="muted" style={{ fontSize: "var(--text-xs)", textAlign: "center" }}>
-        낮을수록 방해를 적게, 높을수록 더 자주 알려줘요
+            </div>
+            <Toggle value={toggles[m.id]} onChange={(v) => toggle(m.id, v)} />
+          </div>
+        ))}
       </div>
     </AppShell>
   );

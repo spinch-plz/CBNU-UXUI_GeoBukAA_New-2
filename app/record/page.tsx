@@ -17,11 +17,11 @@ export default function RecordPage() {
 
   return (
     <AppShell brand={<GeobugaLogo className="brand-logo" />} showMenu>
-      {/* 타이틀 배너 — D_title.svg */}
+      {/* 타이틀 배너 */}
       <img
-        src="/d-title.svg"
+        src="/d_title.png"
         alt="나 이런 거북이야!"
-        style={{ width: "100%", display: "block", borderRadius: "var(--radius-full)" }}
+        style={{ width: "100%", display: "block" }}
       />
 
       {/* 거북이 상태 카드 — D_condition.svg */}

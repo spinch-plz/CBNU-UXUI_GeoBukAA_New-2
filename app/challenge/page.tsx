@@ -1,76 +1,90 @@
 "use client";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import AppShell from "@/components/AppShell";
+import GeobugaLogo from "@/components/art/GeobugaLogo";
 import Icon from "@/components/Icon";
-import { useTurtle } from "@/lib/store";
-import { STRETCHES } from "@/lib/seed";
 
-/** E. 추가운동 — "오늘 더 하실게요?". 오늘 분량 외 추가 가이드, 성공 시 포인트. */
+const CATEGORIES = [
+  { id: "neck", name: "거북이 탈출", icon: "brain", count: 12 },
+  { id: "back", name: "허리 아프세요?", icon: "bone", count: 8 },
+  { id: "shoulder", name: "말린 어깨 펴기", icon: "child", count: 15 },
+  { id: "core", name: "코어를 단단히!", icon: "dna", count: 10 },
+];
+
 export default function ChallengePage() {
   const router = useRouter();
-  const addPoint = useTurtle((s) => s.addPoint);
-  const [doneIds, setDoneIds] = useState<string[]>([]);
-
-  function complete(id: string, reward: number) {
-    if (doneIds.includes(id)) return;
-    setDoneIds((d) => [...d, id]);
-    addPoint(reward);
-  }
-
-  const challenges = STRETCHES.map((s, i) => ({
-    ...s,
-    reward: 15 + i * 5,
-  }));
 
   return (
-    <AppShell title="추가 운동" subtitle="오늘 더 하실게요?">
-      <div className="g-banner">
-        <div className="b-watermark"><Icon name="fire" /></div>
+    <AppShell brand={<GeobugaLogo className="brand-logo" />} showMenu>
+      <img src="/e_title.png" alt="더 하시게요?" style={{ width: "100%", display: "block" }} />
+
+      <div
+        className="g-banner"
+        role="button"
+        onClick={() => router.push("/stretch")}
+        style={{ cursor: "pointer" }}
+      >
+        <div className="b-watermark"><Icon name="dumbbell" /></div>
         <div className="b-title">
-          오늘의 스트레칭보다
-          <br />한 걸음 더!
+          오늘의 스트레칭을<br />진행하세요!
         </div>
-        <button className="g-play" aria-label="시작" onClick={() => router.push("/stretch")}>
+        <button className="g-play" aria-label="시작">
           <Icon name="play" />
         </button>
       </div>
 
-      <div className="section-title">추가 챌린지</div>
-      <div className="stack">
-        {challenges.map((c) => {
-          const done = doneIds.includes(c.id);
-          return (
-            <div
-              className="card"
-              key={c.id}
-              style={{ display: "flex", alignItems: "center", gap: 14 }}
-            >
-              <div className="g-tile">
-                <Icon name={c.icon} />
-              </div>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontWeight: 700, color: "var(--coral-500)" }}>{c.name}</div>
-                <div className="g-points" style={{ fontSize: "var(--text-sm)" }}>
-                  <span className="coin" style={{ width: 18, height: 12 }} />+{c.reward}
-                </div>
-              </div>
-              <button
-                className={`g-btn ${done ? "g-btn--outline" : "g-btn--primary"}`}
-                style={{ padding: "10px 18px", fontSize: 14 }}
-                disabled={done}
-                onClick={() => complete(c.id, c.reward)}
-              >
-                {done ? "완료" : "도전"}
-              </button>
-            </div>
-          );
-        })}
+      <div
+        className="g-banner"
+        role="button"
+        onClick={() => router.push("/stretch")}
+        style={{ cursor: "pointer" }}
+      >
+        <div className="b-watermark"><Icon name="fire" /></div>
+        <div className="b-title">
+          오늘의 챌린지부터<br />하시려구요?
+        </div>
+        <button className="g-play" aria-label="시작">
+          <Icon name="play" />
+        </button>
       </div>
 
-      <div className="muted" style={{ fontSize: "var(--text-xs)", textAlign: "center" }}>
-        추가 운동을 많이 할수록 거북이가 더 빠르게 사람으로 변해요
+      <div className="section-title">부위별 스트레칭</div>
+      <div className="grid-2">
+        {CATEGORIES.map((c) => (
+          <div
+            className="g-card"
+            key={c.id}
+            style={{ cursor: "pointer", padding: "20px 16px 16px" }}
+          >
+            <div className="g-tile" style={{ marginBottom: 12 }}>
+              <Icon name={c.icon} />
+            </div>
+            <div style={{ fontWeight: "var(--fw-bold)", color: "var(--coral-500)", marginBottom: 4 }}>
+              {c.name}
+            </div>
+            <div className="muted" style={{ fontSize: "var(--text-sm)" }}>
+              {c.count}개 스트레칭
+            </div>
+          </div>
+        ))}
       </div>
+
+      <button
+        style={{
+          width: "100%",
+          background: "none",
+          border: "none",
+          boxShadow: "var(--outline)",
+          borderRadius: "var(--radius-full)",
+          padding: "14px",
+          cursor: "pointer",
+          color: "var(--coral-500)",
+          fontWeight: "var(--fw-medium)",
+          fontSize: "var(--text-sm)",
+        }}
+      >
+        더보기 &gt;
+      </button>
     </AppShell>
   );
 }

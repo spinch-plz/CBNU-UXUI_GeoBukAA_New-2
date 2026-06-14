@@ -12,15 +12,22 @@ export default function StretchCalendar({
   const doneSet = new Map(records.map((r) => [r.date, r]));
   const wds = ["S", "M", "T", "W", "T", "F", "S"];
 
-  // 2026년 6월 고정 그리드 (데모)
   const year = 2026;
   const month = 6;
   const first = new Date(year, month - 1, 1).getDay();
   const total = new Date(year, month, 0).getDate();
-  const cells: (number | null)[] = [
+  const allCells: (number | null)[] = [
     ...Array(first).fill(null),
     ...Array.from({ length: total }, (_, i) => i + 1),
   ];
+
+  // 오늘 기준 2주(14칸)만 표시
+  const todayDay = parseInt(todayDate.split("-")[2]);
+  const todayIdx = first + todayDay - 1;
+  const todayRow = Math.floor(todayIdx / 7);
+  const startRow = Math.max(0, todayRow - 1);
+  const cells = allCells.slice(startRow * 7, (startRow + 2) * 7);
+  while (cells.length < 14) cells.push(null);
 
   return (
     <div className="g-cal" style={{ maxWidth: "100%" }}>
@@ -38,8 +45,8 @@ export default function StretchCalendar({
         </div>
       </div>
       <div className="cal-grid">
-        {wds.map((w) => (
-          <div className="wd" key={w}>
+        {wds.map((w, i) => (
+          <div className="wd" key={i}>
             {w}
           </div>
         ))}
