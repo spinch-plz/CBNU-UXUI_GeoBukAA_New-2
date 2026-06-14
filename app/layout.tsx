@@ -5,7 +5,7 @@ import ThemeSync from "@/components/ThemeSync";
 export const metadata: Metadata = {
   title: "Turtle — 자세 교정",
   description: "이중 관심 자세교정 · 거북이에서 사람으로",
-  manifest: "/manifest.webmanifest",
+  manifest: "/CBNU-UXUI_GeoBukAA_New-2/manifest.json",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Turtle" },
   icons: {
     icon: "/app_icon.png",
