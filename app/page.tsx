@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Img from "@/components/Img";
 
 const ICONS = [
   "/splash_icon1.png",
@@ -43,17 +44,17 @@ export default function SplashPage() {
       opacity: fading ? 0 : 1,
       transition: "opacity 300ms ease",
     }}>
-      <img
+      <Img
         src="/splash1.png"
         alt="나 게북이 아니다"
         style={{ width: "55%", maxWidth: 240, display: "block" }}
       />
-      <img
+      <Img
         src={ICONS[iconIdx]}
         alt="거북이"
         style={{ width: "48%", maxWidth: 200, display: "block" }}
       />
-      <img
+      <Img
         src="/splash2.png"
         alt="거북아"
         style={{ width: "68%", maxWidth: 300, display: "block" }}

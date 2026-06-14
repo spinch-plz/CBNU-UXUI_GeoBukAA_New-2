@@ -2,6 +2,7 @@
 import { useState } from "react";
 import AppShell from "@/components/AppShell";
 import GeobugaLogo from "@/components/art/GeobugaLogo";
+import Img from "@/components/Img";
 
 // 고정된 캐릭터별 수치 (스테이터스에 따른 추구미)
 const CHARACTERS = [
@@ -89,10 +90,10 @@ export default function ProfilePage() {
 
   return (
     <AppShell brand={<GeobugaLogo className="brand-logo" />} showMenu>
-      <img src="/b1_title.png" alt="추구미 변경" style={{ width: "100%", display: "block" }} />
+      <Img src="/b1_title.png" alt="추구미 변경" style={{ width: "100%", display: "block" }} />
 
       {/* 현재 추구미 히어로 */}
-      <img src={heroImg} alt="나의 추구미" style={{ width: "100%", display: "block", borderRadius: "var(--radius-md)" }} />
+      <Img src={heroImg} alt="나의 추구미" style={{ width: "100%", display: "block", borderRadius: "var(--radius-md)" }} />
 
       {/* 스테이터스 — 인터랙티브 */}
       <div className="section-title">스테이터스</div>
@@ -106,7 +107,7 @@ export default function ProfilePage() {
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
         {CHARACTERS.map((c) => (
           <div key={c.id} className="g-card" style={{ display: "flex", gap: 28, alignItems: "center" }}>
-            <img
+            <Img
               src={c.img}
               alt={c.name}
               style={{ width: 100, height: 100, objectFit: "contain", flexShrink: 0 }}

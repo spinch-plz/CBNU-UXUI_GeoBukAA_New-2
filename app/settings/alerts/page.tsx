@@ -2,6 +2,7 @@
 import { useState } from "react";
 import AppShell from "@/components/AppShell";
 import GeobugaLogo from "@/components/art/GeobugaLogo";
+import Img from "@/components/Img";
 
 function Toggle({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) {
   return (
@@ -59,14 +60,14 @@ export default function AlertsPage() {
 
   return (
     <AppShell brand={<GeobugaLogo className="brand-logo" />} showMenu>
-      <img src="/b3_title.png" alt="상황별 알림 설정" style={{ width: "100%", display: "block" }} />
+      <Img src="/b3_title.png" alt="상황별 알림 설정" style={{ width: "100%", display: "block" }} />
 
       <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
         {MODES.map((m) => (
           <div key={m.id} style={{ display: "flex", alignItems: "flex-start", gap: 16 }}>
             <div style={{ flex: 1 }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-                <img src={m.icon} alt={m.name} style={{ width: 24, height: 24, objectFit: "contain" }} />
+                <Img src={m.icon} alt={m.name} style={{ width: 24, height: 24, objectFit: "contain" }} />
                 <span style={{
                   fontWeight: "var(--fw-bold)", color: "var(--coral-500)",
                   fontSize: "var(--text-base)",

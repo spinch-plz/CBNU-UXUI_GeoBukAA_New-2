@@ -4,6 +4,7 @@ import AppShell from "@/components/AppShell";
 import GeobugaLogo from "@/components/art/GeobugaLogo";
 import Icon from "@/components/Icon";
 import { useTurtle } from "@/lib/store";
+import Img from "@/components/Img";
 
 const DECOR_ITEMS = [
   { id: "hat",     name: "멋쟁이 모자",     desc: "모자 하나 쓰실라우?",         icon: "hat-cowboy" },
@@ -34,7 +35,7 @@ export default function StorePage() {
   return (
     <AppShell brand={<GeobugaLogo className="brand-logo" />} showMenu>
       {/* 타이틀 */}
-      <img src="/f_title.png" alt="받아 마땅합니다" style={{ width: "100%", display: "block" }} />
+      <Img src="/f_title.png" alt="받아 마땅합니다" style={{ width: "100%", display: "block" }} />
 
       {/* 보유 포인트 */}
       <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 6 }}>

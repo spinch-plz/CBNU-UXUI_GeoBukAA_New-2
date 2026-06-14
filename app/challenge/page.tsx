@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import AppShell from "@/components/AppShell";
 import GeobugaLogo from "@/components/art/GeobugaLogo";
 import Icon from "@/components/Icon";
+import Img from "@/components/Img";
 
 const CATEGORIES = [
   { id: "neck", name: "거북이 탈출", icon: "brain", count: 12 },
@@ -16,7 +17,7 @@ export default function ChallengePage() {
 
   return (
     <AppShell brand={<GeobugaLogo className="brand-logo" />} showMenu>
-      <img src="/e_title.png" alt="더 하시게요?" style={{ width: "100%", display: "block" }} />
+      <Img src="/e_title.png" alt="더 하시게요?" style={{ width: "100%", display: "block" }} />
 
       <div
         className="g-banner"

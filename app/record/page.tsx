@@ -6,6 +6,7 @@ import Icon from "@/components/Icon";
 import StretchCalendar from "@/components/StretchCalendar";
 import { useTurtle } from "@/lib/store";
 import { BADGES } from "@/lib/seed";
+import Img from "@/components/Img";
 
 export default function RecordPage() {
   const { history, badges, dayIndex } = useTurtle();
@@ -18,14 +19,14 @@ export default function RecordPage() {
   return (
     <AppShell brand={<GeobugaLogo className="brand-logo" />} showMenu>
       {/* 타이틀 배너 */}
-      <img
+      <Img
         src="/d_title.png"
         alt="나 이런 거북이야!"
         style={{ width: "100%", display: "block" }}
       />
 
       {/* 거북이 상태 카드 — D_condition.svg */}
-      <img
+      <Img
         src="/d-condition.svg"
         alt="거북이 상태"
         style={{ width: "100%", display: "block", borderRadius: "var(--radius-md)" }}

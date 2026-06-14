@@ -2,6 +2,7 @@
 import { useState } from "react";
 import AppShell from "@/components/AppShell";
 import GeobugaLogo from "@/components/art/GeobugaLogo";
+import Img from "@/components/Img";
 
 const THEMES = [
   { id: "coral", colors: ["#E97451", "#B0E0E6"] },
@@ -14,7 +15,7 @@ export default function ThemePage() {
 
   return (
     <AppShell brand={<GeobugaLogo className="brand-logo" />} showMenu>
-      <img src="/b2_title.png" alt="테마 변경" style={{ width: "100%", display: "block" }} />
+      <Img src="/b2_title.png" alt="테마 변경" style={{ width: "100%", display: "block" }} />
 
       <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
         {THEMES.map((t) => {
