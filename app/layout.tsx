@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   description: "이중 관심 자세교정 · 거북이에서 사람으로",
   manifest: "/manifest.webmanifest",
   appleWebApp: { capable: true, statusBarStyle: "default", title: "Turtle" },
+  icons: {
+    icon: "/app_icon.png",
+    apple: "/app_icon.png",
+  },
 };
 
 export const viewport: Viewport = {
