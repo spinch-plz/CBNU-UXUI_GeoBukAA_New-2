@@ -1,10 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
-import Icon from "@/components/Icon";
 import { useTurtle } from "@/lib/store";
+import Img from "@/components/Img";
 
-/** A1. 로그인 — SNS 로그인은 목업 버튼, 누르면 /home 으로 라우팅. */
 export default function LoginPage() {
   const router = useRouter();
   const login = useTurtle((s) => s.login);
@@ -14,54 +12,99 @@ export default function LoginPage() {
     router.push("/home");
   }
 
-  const sns = [
-    { name: "카카오톡", icon: "comment", bg: "#FEE500", fg: "#191600" },
-    { name: "구글", icon: "google", bg: "#fff", fg: "#1f1f1f" },
-    { name: "애플", icon: "apple", bg: "#111", fg: "#fff" },
-  ];
-
   return (
-    <div className="app-shell">
-      <main
-        className="screen"
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-          gap: 26,
-          paddingBottom: 40,
-        }}
-      >
-        <div className="logo-slot" style={{ width: 200, height: 120 }}>
-          <span className="ph-label">거북아 워드마크</span>
-        </div>
-        <div>
-          <div className="app-title" style={{ fontSize: 30 }}>
-            거북아
-          </div>
-          <div className="muted">거북이에서 사람으로, 바른 자세 습관</div>
-        </div>
+    <div style={{
+      width: "100dvw",
+      height: "100dvh",
+      background: "var(--blue-200, #B2D8D8)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "80px 32px 60px",
+    }}>
+      {/* 거북이 일러스트 + 타이틀 */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
+        <Img
+          src="/splash_icon5.png"
+          alt="거북이"
+          style={{ width: 180, height: 180, objectFit: "contain" }}
+        />
+        <span style={{
+          fontSize: 56,
+          fontWeight: "var(--fw-bold)",
+          color: "var(--coral-500)",
+          fontFamily: "'Gaegu', cursive",
+          lineHeight: 1,
+        }}>
+          거북아
+        </span>
+      </div>
 
-        <div className="stack" style={{ width: "100%", maxWidth: 320 }}>
-          {sns.map((s) => (
-            <button
-              key={s.name}
-              className="g-btn g-btn--block"
-              style={{ background: s.bg, color: s.fg, boxShadow: "var(--outline-thin)" }}
-              onClick={go}
-            >
-              <Icon name={s.icon} /> {s.name}으로 시작하기
-            </button>
-          ))}
-          <button className="g-btn g-btn--outline g-btn--block" onClick={go}>
-            자동 로그인 (기존 사용자)
-          </button>
-        </div>
+      {/* 소셜 로그인 버튼 */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 14, width: "100%" }}>
+        {/* 카카오 */}
+        <button
+          onClick={go}
+          style={{
+            width: "100%", padding: "16px 20px",
+            borderRadius: 999, border: "none", cursor: "pointer",
+            background: "#FEE500", color: "#191600",
+            fontSize: "var(--text-base)", fontWeight: "var(--fw-bold)",
+            display: "flex", alignItems: "center", gap: 12,
+          }}
+        >
+          <span style={{
+            width: 32, height: 32, borderRadius: "50%",
+            background: "#3B1D1D", color: "#FEE500",
+            display: "grid", placeItems: "center",
+            fontSize: 14, fontWeight: 900, flexShrink: 0,
+          }}>
+            K
+          </span>
+          <span style={{ flex: 1, textAlign: "center" }}>카카오로 시작하기</span>
+        </button>
 
-        <Link href="/signup" className="muted" style={{ fontSize: "var(--text-sm)" }}>
-          처음이신가요? <b style={{ color: "var(--coral-500)" }}>회원가입</b>
-        </Link>
-      </main>
+        {/* 구글 */}
+        <button
+          onClick={go}
+          style={{
+            width: "100%", padding: "16px 20px",
+            borderRadius: 999, border: "1.5px solid #dadce0", cursor: "pointer",
+            background: "#fff", color: "#1f1f1f",
+            fontSize: "var(--text-base)", fontWeight: "var(--fw-bold)",
+            display: "flex", alignItems: "center", gap: 12,
+          }}
+        >
+          <span style={{
+            width: 32, height: 32, flexShrink: 0,
+            display: "grid", placeItems: "center",
+          }}>
+            <i className="fa-brands fa-google" style={{ fontSize: 20, color: "#4285F4" }} />
+          </span>
+          <span style={{ flex: 1, textAlign: "center" }}>Google로 시작하기</span>
+        </button>
+
+        {/* 애플 */}
+        <button
+          onClick={go}
+          style={{
+            width: "100%", padding: "16px 20px",
+            borderRadius: 999, border: "none", cursor: "pointer",
+            background: "#111", color: "#fff",
+            fontSize: "var(--text-base)", fontWeight: "var(--fw-bold)",
+            display: "flex", alignItems: "center", gap: 12,
+          }}
+        >
+          <span style={{
+            width: 32, height: 32, flexShrink: 0,
+            display: "grid", placeItems: "center",
+          }}>
+            <i className="fa-brands fa-apple" style={{ fontSize: 22 }} />
+          </span>
+          <span style={{ flex: 1, textAlign: "center" }}>Apple로 시작하기</span>
+        </button>
+      </div>
     </div>
   );
 }
