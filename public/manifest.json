@@ -1,17 +1,23 @@
 {
-  "name": "Turtle — 자세 교정",
-  "short_name": "Turtle",
+  "name": "거북아",
+  "short_name": "거북아",
   "description": "이중 관심 자세교정 · 거북이에서 사람으로",
-  "start_url": "/CBNU-UXUI_GeoBukAA_New-2/home",
+  "start_url": "/CBNU-UXUI_GeoBukAA_New-2/",
   "display": "standalone",
   "background_color": "#b0e0e6",
   "theme_color": "#e97451",
   "icons": [
     {
       "src": "/CBNU-UXUI_GeoBukAA_New-2/app_icon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/CBNU-UXUI_GeoBukAA_New-2/app_icon.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any"
     }
   ]
 }
